@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Task Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Smart Task Analyzer</h1>
+            <p>Prioritize your work using our weighted scoring algorithm.</p>
+        </header>
+
+        <main class="grid-layout">
+            <section class="input-section card">
+                <h2>Add Tasks</h2>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('form')">Manual Entry</button>
+                    <button class="tab-btn" onclick="switchTab('json')">JSON Paste</button>
+                </div>
+
+                <form id="taskForm" class="active-tab">
+                    <div class="form-group">
+                        <label>Task Title</label>
+                        <input type="text" id="title" required placeholder="e.g. Fix Login Bug">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" id="dueDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Effort (Hours)</label>
+                            <input type="number" id="hours" step="0.5" value="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Importance (1-10)</label>
+                        <input type="range" id="importance" min="1" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+                        <output>5</output>
+                    </div>
+
+                    <button type="submit" class="btn-primary">+ Add to List</button>
+                </form>
+
+                <div id="jsonInput" class="hidden-tab">
+                    <textarea id="jsonText" placeholder='[{"title": "Task A", "importance": 8...}]'></textarea>
+                    <button onclick="parseJson()" class="btn-secondary">Load JSON</button>
+                </div>
+
+                <div class="staged-tasks">
+                    <h3>Tasks to Analyze (<span id="count">0</span>)</h3>
+                    <ul id="taskList"></ul>
+                    <button id="analyzeBtn" class="btn-analyze" disabled>🚀 Analyze Priorities</button>
+                </div>
+            </section>
+
+            <section class="output-section card">
+                <div class="output-header">
+                    <h2>Prioritized Results</h2>
+                    
+                    <div class="strategy-selector">
+                        <label>Strategy:</label>
+                        <select id="sortStrategy" onchange="applySorting()">
+                            <option value="smart">🤖 Smart Balance</option>
+                            <option value="urgent">📅 Deadline Driven</option>
+                            <option value="important">⭐ High Impact</option>
+                            <option value="quick">⚡ Fastest Wins</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="resultsArea" class="results-container">
+                    <p class="placeholder-text">Add tasks and click Analyze to see the magic.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
