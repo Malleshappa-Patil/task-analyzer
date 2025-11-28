@@ -58,3 +58,41 @@ python manage.py migrate
 
 # Run the server
 python manage.py runserver
+```
+
+### 3. Frontend Setup
+The frontend is designed to be lightweight and decoupled.
+
+* Navigate to the frontend/ folder in your file explorer.
+
+* Open index.html in any modern web browser (Chrome, Firefox, Edge).
+
+* The frontend will automatically connect to your local Django server.
+
+
+---
+
+## The Scoring Algorithm (Core Logic)
+The heart of this application is the "Smart Balance" algorithm, located in backend/tasks/scoring.py. It assigns a numerical score ($S$) to each task, where a higher score equals higher priority.
+
+### The Formula:$$S = U + (I \times 5) + D + E
+
+1. Urgency ($U$) - "The Time Factor"
+We calculate the days remaining ($d$) until the deadline.
+* Overdue Tasks ($d < 0$): These are critical. We apply a base score of 100 plus a penalty for every day late ($100 + |d| \times 2$). A task 10 days late gets a massive 120 points.
+* Imminent (0-2 days): High priority base score (75 to 50 points).
+* Future (> 7 days): Low urgency score that decays as the date gets further away.
+* Missing Dates: Treated as low urgency to prevent system crashes, ensuring robustness.
+
+2. Importance ($I$) - "The Value Factor"
+Users rate tasks on a 1-10 scale.
+* Weighting: We multiply this value by 5.
+* Rationale: A standard 1-10 scale is too weak against the massive points from "Urgency". By multiplying by 5, a "Life Goal" task (Importance 10) gets 50 points—equivalent to a task due tomorrow. This ensures important work isn't always buried by trivial urgent work.
+
+3. Dependencies ($D$) - "The Bottleneck Factor"
+* Logic: $+10$ points for every other task that is strictly waiting on this task.
+* Rationale: If "Task A" blocks 3 other tasks, finishing "Task A" unlocks significant value. It serves as a force multiplier for productivity.
+
+4. Effort ($E$) - "The Momentum Factor"
+* Quick Wins: If estimated_hours $\le$ 2, we add +10 points.
+* Rationale: Behavioral psychology suggests that completing small tasks early builds momentum. This small bonus pushes quick tasks up the list without overshadowing critical work.
