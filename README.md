@@ -135,7 +135,7 @@ Finally, we consider the psychological aspect of productivity.
 
 
 ## Bonus Challenges
-* Unit Tests: Implemented a standalone python script (test_api.py) to verify the scoring logic against edge cases (Overdue dates, Missing dates) before connecting the frontend.
+* Unit Tests: Implemented a standalone python script (tests.py) to verify the scoring logic against edge cases (Overdue dates, Missing dates) before connecting the frontend.
 
 * Sorting Strategies: Implemented a UI toggle to switch between "Smart Balance", "Deadline Driven", and "Fastest Wins".
 
