@@ -3,7 +3,16 @@
 You don't run this file directly with `python`. You use Django's test runner.
 
 1. Before running the tests, ensure your virtual environment is activated and all dependencies are installed.
-# On mac us source venv/bin/activate  # On Windows use venn\Scripts\activate
+
+On mac use: 
+```bash
+source venv/bin/activate
+```
+
+On Windows use:
+```bash
+venn\Scripts\activate
+```
 
 2.  Open your terminal in the `backend/` folder.
 3.  Run this command:
