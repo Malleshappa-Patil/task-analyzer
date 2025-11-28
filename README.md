@@ -75,7 +75,7 @@ The frontend is designed to be lightweight and decoupled.
 ## The Scoring Algorithm (Core Logic)
 The heart of this application is the "Smart Balance" algorithm, located in backend/tasks/scoring.py. It assigns a numerical score ($S$) to each task, where a higher score equals higher priority.
 
-### The Formula:$$S = U + (I \times 5) + D + E
+### The Formula: $S = U + (I x 5) + D + E$
 
 1. Urgency ($U$) - "The Time Factor"
 We calculate the days remaining ($d$) until the deadline.
